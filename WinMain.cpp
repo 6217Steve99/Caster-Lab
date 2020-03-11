@@ -6,6 +6,8 @@ int CALLBACK WinMain(
 	LPSTR     lpCmdLine,
 	int       nCmdShow)
 {
+	try
+	{
 	Window wnd(1080, 688, "Caster Lab");
 
 	MSG msg;
@@ -25,4 +27,18 @@ int CALLBACK WinMain(
 
 	// wParam here is the value passed to PostQuitMessage
 	return msg.wParam;
+}
+	catch (const CasterException & e)
+	{
+		MessageBox(nullptr, e.what(), e.GetType(), MB_OK | MB_ICONEXCLAMATION);
+	}
+	catch (const std::exception & e)
+	{
+		MessageBox(nullptr, e.what(), "Standard Exception", MB_OK | MB_ICONEXCLAMATION);
+	}
+	catch (...)
+	{
+		MessageBox(nullptr, "No details available", "Unknown Exception", MB_OK | MB_ICONEXCLAMATION);
+	}
+	return -1;
 }
