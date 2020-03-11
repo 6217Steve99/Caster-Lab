@@ -47,18 +47,18 @@ FrameContext* WaitForNextFrameResources();
 void ResizeSwapChain(HWND hWnd, int width, int height);
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-int main(int, char**)
+int oldmain(int, char**)
 {
     // Create application window
-    WNDCLASSEX mainWindow = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("Caster Lab"), NULL };
-    ::RegisterClassEx(&mainWindow);
-    HWND hwnd = ::CreateWindow(mainWindow.lpszClassName, _T("Caster Lab"), WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, mainWindow.hInstance, NULL);
+    WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("Caster Lab"), NULL };
+    ::RegisterClassEx(&wc);
+    HWND hwnd = ::CreateWindow(wc.lpszClassName, _T("Caster Lab"), WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
 
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
     {
         CleanupDeviceD3D();
-        ::UnregisterClass(mainWindow.lpszClassName, mainWindow.hInstance);
+        ::UnregisterClass(wc.lpszClassName, wc.hInstance);
         return 1;
     }
 
@@ -168,7 +168,7 @@ int main(int, char**)
 
     CleanupDeviceD3D();
     ::DestroyWindow(hwnd);
-    ::UnregisterClass(mainWindow.lpszClassName, mainWindow.hInstance);
+    ::UnregisterClass(wc.lpszClassName, wc.hInstance);
 
     return 0;
 }
