@@ -18,9 +18,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Timer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
@@ -51,11 +48,20 @@
     <ClCompile Include="CasterException.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="App.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CasterTimer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Timer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>imgui</Filter>
     </ClInclude>
@@ -93,6 +99,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="App.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CasterTimer.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

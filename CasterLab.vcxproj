@@ -149,21 +149,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="App.cpp" />
     <ClCompile Include="CasterException.cpp" />
+    <ClCompile Include="CasterTimer.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="imgui_impl_dx12.cpp" />
     <ClCompile Include="imgui_impl_win32.cpp" />
-    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="App.h" />
     <ClInclude Include="CasterException.h" />
     <ClInclude Include="CasterLabWin.h" />
+    <ClInclude Include="CasterTimer.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_internal.h" />
@@ -172,8 +177,9 @@
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="imgui_impl_dx12.h" />
     <ClInclude Include="imgui_impl_win32.h" />
+    <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Timer.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowsMessageMap.h" />
   </ItemGroup>
