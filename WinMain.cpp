@@ -1,5 +1,4 @@
-#include "Window.h"
-#include <sstream>
+#include "App.h"
 
 int CALLBACK WinMain(
 	HINSTANCE hInstance,
@@ -9,52 +8,8 @@ int CALLBACK WinMain(
 {
 	try
 	{
-	Window wnd(1080, 688, "Caster Lab");
-
-	MSG msg;
-	BOOL gResult;
-	while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
-	{
-		// TranslateMessage will post auxilliary WM_CHAR messages from key msgs
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-
-		// test code
-		static int i = 0;
-		while (!wnd.mouse.IsEmpty())
-		{
-			const auto e = wnd.mouse.Read();
-			switch (e.GetType())
-			{
-			case Mouse::Event::Type::WheelUp:
-				i++;
-				{
-					std::ostringstream oss;
-					oss << "Up: " << i;
-					wnd.SetTitle(oss.str());
-				}
-				break;
-			case Mouse::Event::Type::WheelDown:
-				i--;
-				{
-					std::ostringstream oss;
-					oss << "Down: " << i;
-					wnd.SetTitle(oss.str());
-				}
-				break;
-			}
-		}
+		return App{}.Go();
 	}
-
-	// check if GetMessage call itself borked
-	if (gResult == -1)
-	{
-		throw CHWND_LAST_EXCEPT();
-	}
-
-	// wParam here is the value passed to PostQuitMessage
-	return msg.wParam;
-}
 	catch (const CasterException & e)
 	{
 		MessageBox(nullptr, e.what(), e.GetType(), MB_OK | MB_ICONEXCLAMATION);
