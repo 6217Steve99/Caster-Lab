@@ -117,6 +117,22 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		// we want our destructor to destroy the window, so return 0 instead of break
 	case WM_CLOSE:
 		PostQuitMessage(0);
+
+	// clear keystate when window loses focus to prevent input getting "stuck"
+	case WM_KILLFOCUS:
+		kbd.ClearState();
+		break;
+	/*********** KEYBOARD MESSAGES ***********/
+	case WM_KEYDOWN:
+		kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
+		break;
+	case WM_KEYUP:
+		kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
+		break;
+	case WM_CHAR:
+		kbd.OnChar(static_cast<unsigned char>(wParam));
+		break;
+	/*********** END KEYBOARD MESSAGES ***********/
 		return 0;
 	}
 
