@@ -4,7 +4,7 @@
 class CasterTimer
 {
 public:
-	ChiliTimer() noexcept;
+	CasterTimer() noexcept;
 	float Mark() noexcept;
 	float Peek() const noexcept;
 private:
