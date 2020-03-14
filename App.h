@@ -1,6 +1,7 @@
 #pragma once
 #include "Window.h"
 #include "CasterTimer.h"
+#include "CasterException.h"
 
 class App
 {
