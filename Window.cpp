@@ -39,7 +39,7 @@ Window::WindowClass::~WindowClass()
 	UnregisterClass(wndClassName, GetInstance());
 }
 
-const char* Window::WindowClass::GetName() noexcept
+const wchar_t* Window::WindowClass::GetName() noexcept
 {
 	return wndClassName;
 }
@@ -51,14 +51,14 @@ HINSTANCE Window::WindowClass::GetInstance() noexcept
 
 void Window::SetTitle(const std::string& title)
 {
-	if (SetWindowText(hWnd, title.c_str()) == 0)
+	if (SetWindowTextA(hWnd, title.c_str()) == 0)
 	{
 		throw CHWND_LAST_EXCEPT();
 	}
 }
 
 // Window Stuff
-Window::Window(int width, int height, const char* name) :
+Window::Window(int width, int height, const wchar_t* name):
 	width(width),
 	height(height)
 {
@@ -325,7 +325,7 @@ std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
 {
 	char* pMsgBuf = nullptr;
 	// windows will allocate memory for err string and make our pointer point to it
-	const DWORD nMsgLen = FormatMessage(
+	const DWORD nMsgLen = FormatMessageA(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER |
 		FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		nullptr, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),

@@ -5,7 +5,8 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include <optional>
-#include <memory>
+#include<tchar.h>
+//#include <memory>
 
 class Window
 {
@@ -38,19 +39,19 @@ private:
 	class WindowClass
 	{
 	public:
-		static const char* GetName() noexcept;
+		static const wchar_t* GetName() noexcept;
 		static HINSTANCE GetInstance() noexcept;
 	private:
 		WindowClass() noexcept;
 		~WindowClass();
 		WindowClass(const WindowClass&) = delete;
 		WindowClass& operator=(const WindowClass&) = delete;
-		static constexpr const char* wndClassName = "Caster Lab Window";
+		static constexpr const auto* wndClassName = _T("Caster Lab Window");
 		static WindowClass wndClass;
 		HINSTANCE hInst;
 	};
 public:
-	Window(int width, int height, const char* name);
+	Window(int width, int height, const wchar_t* name);
 	~Window();
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
