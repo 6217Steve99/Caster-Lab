@@ -355,3 +355,4 @@ MigrationBackup/
 # Development record
 Note/
 *.cso
+imgui.ini
