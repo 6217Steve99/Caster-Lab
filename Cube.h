@@ -1,32 +1,41 @@
 #pragma once
-#include <math.h>
+#include "IndexedTriangleList.h"
+#include <DirectXMath.h>
 
-constexpr float PI = 3.14159265f;
-constexpr double PI_D = 3.1415926535897932;
-
-template <typename T>
-constexpr auto sq(const T& x)
+class Cube
 {
-	return x * x;
-}
+public:
+	template<class V>
+	static IndexedTriangleList<V> Make()
+	{
+		namespace dx = DirectX;
 
-template<typename T>
-T wrap_angle(T theta)
-{
-	const T modded = fmod(theta, (T)2.0 * (T)PI_D);
-	return (modded > (T)PI_D) ?
-		(modded - (T)2.0 * (T)PI_D) :
-		modded;
-}
+		constexpr float side = 1.0f / 2.0f;
 
-template<typename T>
-constexpr T interpolate(const T& src, const T& dst, float alpha)
-{
-	return src + (dst - src) * alpha;
-}
+		std::vector<dx::XMFLOAT3> vertices;
+		vertices.emplace_back(-side, -side, -side); // 0
+		vertices.emplace_back(side, -side, -side); // 1
+		vertices.emplace_back(-side, side, -side); // 2
+		vertices.emplace_back(side, side, -side); // 3
+		vertices.emplace_back(-side, -side, side); // 4
+		vertices.emplace_back(side, -side, side); // 5
+		vertices.emplace_back(-side, side, side); // 6
+		vertices.emplace_back(side, side, side); // 7
 
-template<typename T>
-constexpr T to_rad(T deg)
-{
-	return deg * PI / (T)180.0;
-}
+		std::vector<V> verts(vertices.size());
+		for (size_t i = 0; i < vertices.size(); i++)
+		{
+			verts[i].pos = vertices[i];
+		}
+		return{
+			std::move(verts),{
+				0,2,1, 2,3,1,
+				1,3,5, 3,7,5,
+				2,6,3, 3,6,7,
+				4,5,7, 4,7,6,
+				0,4,2, 2,4,6,
+				0,1,4, 1,5,4
+			}
+		};
+	}
+};
