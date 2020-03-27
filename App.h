@@ -1,6 +1,7 @@
 #pragma once
 #include "Window.h"
 #include "CasterTimer.h"
+#include "ImguiManager.h"
 
 class App
 {
@@ -12,6 +13,7 @@ public:
 private:
 	void DoFrame();
 private:
+	ImguiManager imgui;
 	Window wnd;
 	CasterTimer timer;
 	std::vector<std::unique_ptr<class Drawable>> drawables;
