@@ -66,8 +66,16 @@ public:
 	Keyboard kbd;
 	Mouse mouse;
 private:
-	int width;
-	int height;
+	//int width;
+	//int height;
 	HWND hWnd;
 	std::unique_ptr<Graphics> pGfx;
+protected:
+	bool      mAppPaused = false;  // is the application paused?
+	bool      mMinimized = false;  // is the application minimized?
+	bool      mMaximized = false;  // is the application maximized?
+	bool      mResizing = false;   // are the resize bars being dragged?
+	bool      mFullscreenState = false;// fullscreen enabled
+	int mClientWidth = 800;
+	int mClientHeight = 600;
 };

@@ -77,7 +77,7 @@ public:
 		std::string reason;
 	};
 public:
-	Graphics(HWND hWnd);
+	Graphics(HWND hWnd, int width, int height);
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics() = default;
@@ -103,7 +103,7 @@ public:
 	D3D12_CPU_DESCRIPTOR_HANDLE DepthStencilView()const;
 	void LogOutputDisplayModes(IDXGIOutput* output, DXGI_FORMAT format);
 	void CreateRtvAndDsvDescriptorHeaps();
-	void OnResize();
+	void OnResize(int width, int height);
 
 private:
 	bool imguiEnabled = true;
@@ -112,7 +112,8 @@ private:
 	DxgiInfoManager infoManager;
 #endif
 
-
+public:
+	Microsoft::WRL::ComPtr<ID3D12Device> md3dDevice;
 
 protected:
     HINSTANCE mhAppInst = nullptr; // application instance handle
@@ -131,7 +132,7 @@ protected:
 	
     Microsoft::WRL::ComPtr<IDXGIFactory4> mdxgiFactory;
     Microsoft::WRL::ComPtr<IDXGISwapChain> mSwapChain;
-    Microsoft::WRL::ComPtr<ID3D12Device> md3dDevice;
+    //Microsoft::WRL::ComPtr<ID3D12Device> md3dDevice;
 
     Microsoft::WRL::ComPtr<ID3D12Fence> mFence;
     UINT64 mCurrentFence = 0;

@@ -19,13 +19,15 @@ namespace dx = DirectX;
 #define ReleaseCom(x) { if(x){ x->Release(); x = 0; } }
 #endif
 
-Graphics::Graphics(HWND hWnd)
+Graphics::Graphics(HWND hWnd,int width,int height)
 {	
 	mhMainWnd = hWnd;
+	mClientWidth = width;
+	mClientHeight = height;
 	assert(InitDirect3D());
 
 	// Do the initial resize code.
-	OnResize();
+	OnResize(mClientWidth, mClientHeight);
 
 	// init imgui d3d impl
 	//ImGui_ImplDX11_Init(pDevice.Get(), pContext.Get());
@@ -75,16 +77,19 @@ void Graphics::Set4xMsaaState(bool value)
 
 		// Recreate the swapchain and buffers with new multisample settings.
 		CreateSwapChain();
-		OnResize();
+		OnResize(mClientWidth,mClientHeight);
 	}
 }
 
-void Graphics::OnResize()
+void Graphics::OnResize(int width,int height)
 {
 	assert(md3dDevice);
 	assert(mSwapChain);
 	assert(mDirectCmdListAlloc);
 
+	mClientWidth = width;
+	mClientHeight = height;
+	
 	// Flush before changing any resources.
 	FlushCommandQueue();
 
