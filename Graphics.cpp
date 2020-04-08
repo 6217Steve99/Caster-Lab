@@ -6,14 +6,11 @@
 #include <DirectXMath.h>
 #include <WindowsX.h>
 #include "GraphicsThrowMacros.h"
-#include "imgui/imgui_impl_dx11.h"
+#include "imgui/imgui_impl_dx12.h"
 #include "imgui/imgui_impl_win32.h"
 
 namespace wrl = Microsoft::WRL;
 namespace dx = DirectX;
-
-#pragma comment(lib,"d3d11.lib")
-#pragma comment(lib,"D3DCompiler.lib")
 
 #ifndef ReleaseCom
 #define ReleaseCom(x) { if(x){ x->Release(); x = 0; } }
@@ -30,17 +27,21 @@ Graphics::Graphics(HWND hWnd,int width,int height)
 	OnResize(mClientWidth, mClientHeight);
 
 	// init imgui d3d impl
-	//ImGui_ImplDX11_Init(pDevice.Get(), pContext.Get());
+	ImGui_ImplDX12_Init(md3dDevice.Get(), 2,
+		DXGI_FORMAT_R8G8B8A8_UNORM, mDsvHeap.Get(),
+		mDsvHeap->GetCPUDescriptorHandleForHeapStart(),
+		mDsvHeap->GetGPUDescriptorHandleForHeapStart());
+
 }
 
 void Graphics::EndFrame()
 {
-	// imgui frame end
-	//if (imguiEnabled)
-	//{
-	//	ImGui::Render();
-	//	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-	//}
+	//imgui frame end
+	if (imguiEnabled)
+	{
+		ImGui::Render();
+		ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), mCommandList.Get());
+	}
 
 //	HRESULT hr;
 //#ifndef NDEBUG
@@ -429,17 +430,21 @@ D3D12_CPU_DESCRIPTOR_HANDLE Graphics::DepthStencilView()const
 void Graphics::BeginFrame(float red, float green, float blue) noexcept
 {
 	//// imgui begin frame
-	//if (imguiEnabled)
-	//{
-	//	ImGui_ImplDX11_NewFrame();
-	//	ImGui_ImplWin32_NewFrame();
-	//	ImGui::NewFrame();
-	//}
+	if (imguiEnabled)
+	{
+		ImGui_ImplDX12_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
+		bool show_demo_window = true;
+		ImGui::ShowDemoWindow(&show_demo_window);
 
+	}
 	//const float color[] = { red,green,blue,1.0f };
 	//pContext->ClearRenderTargetView(pTarget.Get(), color);
 	//pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
-		// Reuse the memory associated with command recording.
+	
+	
+	// Reuse the memory associated with command recording.
 	// We can only reset when the associated command lists have finished execution on the GPU.
 	GFX_EXCEPT(mDirectCmdListAlloc->Reset());
 
@@ -462,6 +467,11 @@ void Graphics::BeginFrame(float red, float green, float blue) noexcept
 	// Specify the buffers we are going to render to.
 	mCommandList->OMSetRenderTargets(1, &CurrentBackBufferView(), true, &DepthStencilView());
 
+	if (imguiEnabled)
+	{
+		ImGui::Render();
+		ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), mCommandList.Get());
+	}
 	// Indicate a state transition on the resource usage.
 	mCommandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(CurrentBackBuffer(),
 		D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT));

@@ -34,8 +34,6 @@
 #pragma comment(lib, "D3D12.lib")
 #pragma comment(lib, "dxgi.lib")
 
-
-
 class Graphics
 {
 	friend class Bindable;

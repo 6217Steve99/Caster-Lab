@@ -12,6 +12,9 @@
 // https://github.com/ocornut/imgui
 
 #pragma once
+#include "../CasterLabWin.h"
+#include "../Graphics.h"
+#include "imgui.h"
 
 enum DXGI_FORMAT;
 struct ID3D12Device;
