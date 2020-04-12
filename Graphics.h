@@ -104,7 +104,7 @@ public:
 	void OnResize(int width, int height);
 
 private:
-	bool imguiEnabled = true;
+	bool imguiEnabled = false;
 	DirectX::XMMATRIX projection;
 #ifndef NDEBUG
 	DxgiInfoManager infoManager;
