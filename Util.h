@@ -29,6 +29,7 @@
 #include "DDSTextureLoader.h"
 #include "MathHelper.h"
 #include "GraphicsExpection.h"
+#include "GraphicsThrowMacros.h"
 
 const int gNumFrameResources=3;
 
@@ -54,7 +55,7 @@ inline void d3dSetDebugName(ID3D12DeviceChild* obj, const char* name)
     }
 }
 
-class d3dUtil
+class d3dUtil :public GraphicsExpection
 {
 public:
 
@@ -240,14 +241,6 @@ struct Texture
     Microsoft::WRL::ComPtr<ID3D12Resource> UploadHeap = nullptr;
 };
 
-#ifndef ThrowIfFailed
-#define ThrowIfFailed(x)                                              \
-{                                                                     \
-    HRESULT hr__ = (x);                                               \
-    std::wstring wfn;                       \
-    if(FAILED(hr__)) { throw DxException(hr__, L#x, wfn, __LINE__); } \
-}
-#endif
 
 #ifndef ReleaseCom
 #define ReleaseCom(x) { if(x){ x->Release(); x = 0; } }

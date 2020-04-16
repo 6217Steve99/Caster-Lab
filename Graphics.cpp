@@ -31,7 +31,7 @@ Graphics::Graphics(HWND hWnd,int width,int height)
 	OnResize(mClientWidth, mClientHeight);
 
 	// Reset the command list to prep for initialization commands.
-	ThrowIfFailed(mCommandList->Reset(mDirectCmdListAlloc.Get(), nullptr));
+	GFX_EXCEPT(mCommandList->Reset(mDirectCmdListAlloc.Get(), nullptr));
 
 	// Further Initialize
 	BuildRootSignature();
@@ -465,9 +465,10 @@ void Graphics::BeginFrame(float red, float green, float blue) noexcept
 		ImGui_ImplDX12_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
-		bool show_demo_window = true;
-		ImGui::ShowDemoWindow(&show_demo_window);
-
+		if (show_demo_window)
+		{
+			ImGui::ShowDemoWindow(&show_demo_window);
+		}
 	}
 	
 	UpdateCamera();

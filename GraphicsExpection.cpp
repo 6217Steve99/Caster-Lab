@@ -20,6 +20,19 @@ GraphicsExpection::HrException::HrException(int line, const char* file, HRESULT 
 	}
 }
 
+GraphicsExpection::HrException::HrException(int line, const char* file, HRESULT hr, const std::wstring& functionName) noexcept
+	:
+	Exception(line, file),
+	hr(hr)
+{
+	// join all info messages with newlines into single string
+	for (const auto& m : functionName)
+	{
+		info += m;
+		info.push_back('\n');
+	}
+}
+
 const char* GraphicsExpection::HrException::what() const noexcept
 {
 	std::ostringstream oss;

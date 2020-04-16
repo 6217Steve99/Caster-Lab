@@ -123,6 +123,7 @@ public:
 
 private:
 	bool imguiEnabled = true;
+	bool show_demo_window = true;
 	DirectX::XMMATRIX projection;
 
 public:

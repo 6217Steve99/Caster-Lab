@@ -33,6 +33,7 @@ public:
 	{
 	public:
 		HrException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs = {}) noexcept;
+		HrException(int line, const char* file, HRESULT hr, const std::wstring& functionName) noexcept;
 		const char* what() const noexcept override;
 		const char* GetType() const noexcept override;
 		HRESULT GetErrorCode() const noexcept;
@@ -61,7 +62,6 @@ public:
 	private:
 		std::string reason;
 	};
-
 #ifndef NDEBUG
 	DxgiInfoManager infoManager;
 #endif
