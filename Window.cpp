@@ -253,6 +253,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 				mouse.OnMouseLeave();
 			}
 		}
+		Gfx().OnMouseMove(mouse.LeftIsPressed(), mouse.RightIsPressed(), mouse.GetPosX(), mouse.GetPosY());
 		break;
 	}
 	case WM_LBUTTONDOWN:

@@ -29,6 +29,7 @@
 #include "MathHelper.h"
 #include "UploadBuffer.h"
 #include "GraphicsExpection.h"
+#include "Mouse.h"
 
 #if defined(DEBUG) || defined(_DEBUG)
 #define _CRTDBG_MAP_ALLOC
@@ -117,6 +118,8 @@ public:
 	void UpdateCamera();
 	void UpdateObjectCBs();
 	void UpdateMainPassCB();
+
+	void OnMouseMove(bool LeftIsPressed, bool RightIsPressed, int x, int y);
 
 private:
 	bool imguiEnabled = false;
@@ -210,4 +213,6 @@ private:
 	float mTheta = 1.5f * DirectX::XM_PI;
 	float mPhi = 0.2f * DirectX::XM_PI;
 	float mRadius = 15.0f;
+
+	POINT mLastMousePos;
 };

@@ -1026,6 +1026,36 @@ void Graphics::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::ve
 	}
 }
 
+void Graphics::OnMouseMove(bool LeftIsPressed,bool RightIsPressed,int x,int y)
+{
+	if (LeftIsPressed)
+	{
+		// Make each pixel correspond to a quarter of a degree.
+		float dx = XMConvertToRadians(0.25f * static_cast<float>(x - mLastMousePos.x));
+		float dy = XMConvertToRadians(0.25f * static_cast<float>(y - mLastMousePos.y));
+
+		// Update angles based on input to orbit camera around box.
+		mTheta += dx;
+		mPhi += dy;
+
+		// Restrict the angle mPhi.
+		mPhi = MathHelper::Clamp(mPhi, 0.1f, MathHelper::Pi - 0.1f);
+	}
+	else if (RightIsPressed)
+	{
+		// Make each pixel correspond to 0.2 unit in the scene.
+		float dx = 0.05f * static_cast<float>(x - mLastMousePos.x);
+		float dy = 0.05f * static_cast<float>(y - mLastMousePos.y);
+
+		// Update the camera radius based on input.
+		mRadius += dx - dy;
+
+		// Restrict the radius.
+		mRadius = MathHelper::Clamp(mRadius, 5.0f, 150.0f);
+	}
+	mLastMousePos.x = x;
+	mLastMousePos.y = y;
+}
 
 DirectX::XMMATRIX Graphics::GetProjection() const noexcept
 {
