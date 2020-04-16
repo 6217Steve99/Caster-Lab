@@ -96,7 +96,7 @@ void App::DoFrame()
 	
 
 	//// present
-	wnd.Gfx().EndFrame();
+	//wnd.Gfx().EndFrame();
 }
 
 App::~App()

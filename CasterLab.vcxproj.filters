@@ -84,9 +84,6 @@
     <ClCompile Include="GDIPlusManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="imgui\imgui_impl_dx11.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
     <ClCompile Include="imgui\imgui_impl_dx12.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
@@ -94,6 +91,21 @@
       <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="ImguiManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MathHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameResourse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryGenerator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsExpection.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,9 +179,6 @@
     <ClInclude Include="GDIPlusManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="imgui\imgui_impl_dx11.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
     <ClInclude Include="imgui\imgui_impl_dx12.h">
       <Filter>imgui</Filter>
     </ClInclude>
@@ -180,6 +189,27 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="d3dx12.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameResource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DDSTextureLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MathHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UploadBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryGenerator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsExpection.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
