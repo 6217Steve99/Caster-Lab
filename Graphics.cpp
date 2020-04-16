@@ -32,6 +32,7 @@ Graphics::Graphics(HWND hWnd,int width,int height)
 
 	// Reset the command list to prep for initialization commands.
 	ThrowIfFailed(mCommandList->Reset(mDirectCmdListAlloc.Get(), nullptr));
+
 	// Further Initialize
 	BuildRootSignature();
 	BuildShadersAndInputLayout();
@@ -50,12 +51,13 @@ Graphics::Graphics(HWND hWnd,int width,int height)
 	// Wait until initialization is complete.
 	FlushCommandQueue();
 
-	//// init imgui d3d impl
-	//ImGui_ImplDX12_Init(md3dDevice.Get(), 2,
-	//	DXGI_FORMAT_R8G8B8A8_UNORM, mDsvHeap.Get(),
-	//	mDsvHeap->GetCPUDescriptorHandleForHeapStart(),
-	//	mDsvHeap->GetGPUDescriptorHandleForHeapStart());
-
+	// Init ImGui Win32 Impl
+	ImGui_ImplWin32_Init(mhMainWnd);
+	// init imgui d3d impl
+	ImGui_ImplDX12_Init(md3dDevice.Get(), 3,
+		DXGI_FORMAT_R8G8B8A8_UNORM, mCbvHeap.Get(),
+		mCbvHeap->GetCPUDescriptorHandleForHeapStart(),
+		mCbvHeap->GetGPUDescriptorHandleForHeapStart());
 }
 
 void Graphics::EndFrame()
@@ -457,20 +459,16 @@ D3D12_CPU_DESCRIPTOR_HANDLE Graphics::DepthStencilView()const
 
 void Graphics::BeginFrame(float red, float green, float blue) noexcept
 {
-	////// imgui begin frame
-	//if (imguiEnabled)
-	//{
-	//	ImGui_ImplDX12_NewFrame();
-	//	ImGui_ImplWin32_NewFrame();
-	//	ImGui::NewFrame();
-	//	bool show_demo_window = true;
-	//	ImGui::ShowDemoWindow(&show_demo_window);
+	//// imgui begin frame
+	if (imguiEnabled)
+	{
+		ImGui_ImplDX12_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
+		bool show_demo_window = true;
+		ImGui::ShowDemoWindow(&show_demo_window);
 
-	//}
-	//const float color[] = { red,green,blue,1.0f };
-	//pContext->ClearRenderTargetView(pTarget.Get(), color);
-	//pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
-	
+	}
 	
 	UpdateCamera();
 
@@ -534,6 +532,9 @@ void Graphics::BeginFrame(float red, float green, float blue) noexcept
 	mCommandList->SetGraphicsRootDescriptorTable(1, passCbvHandle);
 
 	DrawRenderItems(mCommandList.Get(), mOpaqueRitems);
+
+	ImGui::Render();
+	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), mCommandList.Get());
 
 	// Indicate a state transition on the resource usage.
 	mCommandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(CurrentBackBuffer(),

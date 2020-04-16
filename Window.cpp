@@ -98,9 +98,6 @@ Window::Window(int width, int height, const wchar_t* name):
 	pGfx = std::make_unique<Graphics>(hWnd, mClientWidth, mClientHeight);
 	// newly created windows start off as hidden
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
-	// Init ImGui Win32 Impl
-	ImGui_ImplWin32_Init(hWnd);
-	
 }
 
 Window::~Window()

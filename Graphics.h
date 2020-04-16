@@ -122,7 +122,7 @@ public:
 	void OnMouseMove(bool LeftIsPressed, bool RightIsPressed, int x, int y);
 
 private:
-	bool imguiEnabled = false;
+	bool imguiEnabled = true;
 	DirectX::XMMATRIX projection;
 
 public:
